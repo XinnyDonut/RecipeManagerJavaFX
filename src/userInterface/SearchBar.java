@@ -3,14 +3,20 @@ package userInterface;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 public class SearchBar extends HBox{
 	TextField searchField= new TextField();
-	Button addRecipe=new Button("+");
-	
+	Button addRecipeBtn=new Button("+");
+	Root root;
 	
 	public SearchBar() {
+		setLayout();
+	}
+	
+	public SearchBar(Root root) {
+		this.root=root;
 		setLayout();
 	}
 	
@@ -20,6 +26,11 @@ public class SearchBar extends HBox{
 		
 		this.setSpacing(40);;
 		this.setAlignment(Pos.BASELINE_RIGHT);
-		this.getChildren().addAll(searchField,addRecipe);
+		this.getChildren().addAll(searchField,addRecipeBtn);
+		this.setAddRecipeBtn();
+	}
+	
+	public void setAddRecipeBtn() {
+		addRecipeBtn.setOnAction(e->this.root.setCenter(root.getAddRecipeView()));
 	}
 }

@@ -19,10 +19,7 @@ public class Recipe {
 		this.tested=false;
 	}
 
-	
-	
-	
-	
+
 	
 	
 	public String getName() {
