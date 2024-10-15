@@ -1,15 +1,20 @@
 package userInterface;
 
 import javafx.scene.layout.BorderPane;
+import logic.RecipeBook;
 
 public class Root extends BorderPane{
+	RecipeBook recipeBook;
 	LeftNav leftNav=new LeftNav();
 	SearchBar searchBar =new SearchBar(this);
 	RecipeNav recipesNav=new RecipeNav();
-	AddRecipeView addRecipeView=new AddRecipeView(this);
+	AddRecipeView addRecipeView;
 	
-	public Root() {
+	public Root(RecipeBook recipeBook) {
+		this.recipeBook=recipeBook;
+		this.addRecipeView=new AddRecipeView(this,recipeBook);
 		this.setInitialLayout();
+		
 	}
 	
 	

@@ -2,6 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import logic.Recipe;
+import logic.RecipeBook;
 import userInterface.LeftNav;
 import userInterface.Root;
 import userInterface.RecipeNav;
@@ -11,21 +13,12 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-	@Override
+	
+	
 	public void start(Stage primaryStage) {
 		try {
-//			BorderPane root = new BorderPane();
-			
-			
-			
-//			LeftNav fcPane=new LeftNav();
-//			SearchBar searchBar =new SearchBar(root);
-//			RecipeNav recipesNav=new RecipeNav();			
-//			root.setLeft(fcPane);
-//			root.setTop(searchBar);
-//			root.setCenter(recipesNav);
-			
-			Root root=new Root();
+			RecipeBook recipeBook=new RecipeBook();
+			Root root=new Root(recipeBook);
 			
 			Scene scene = new Scene(root,600,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -38,5 +31,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		
+		
 	}
 }
