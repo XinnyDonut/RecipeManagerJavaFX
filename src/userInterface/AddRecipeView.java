@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -33,7 +32,9 @@ public class AddRecipeView extends VBox{
 	CheckBox vegeCheck=new CheckBox("Vegetarian");
 	CheckBox tested=new CheckBox("tested Recipe");	
 	GridPane infoArea=new GridPane();
+	Recipe recipe=new Recipe();
 	RecipeBook recipeBook;
+	ImageView imgView=new ImageView();
 	
 	
 	public AddRecipeView(Root root,RecipeBook rb) {
@@ -60,7 +61,7 @@ public class AddRecipeView extends VBox{
 	}
 	
 	public void setImageAreaLayout() {
-		ImageView imgView=new ImageView();
+		
 		imgView.setImage(new Image("file:img/placeholder.png"));
 		imgView.setFitWidth(100);
 		imgView.setFitHeight(100);
@@ -75,6 +76,7 @@ public class AddRecipeView extends VBox{
 				try {
 					Image foodImg=new Image(new FileInputStream(selectefFile));
 					imgView.setImage(foodImg);
+					
 				}catch(FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
@@ -126,8 +128,7 @@ public class AddRecipeView extends VBox{
 			if(nameField.getText().isEmpty()) {
 				return;
 			}else {
-				String name=nameField.getText();
-				Recipe recipe=new Recipe(name);
+				String name=nameField.getText();				
 				recipe.setName(name);	
 				recipe.setBaking(bakingCheck.isSelected());			
 				recipe.setVegetarian(vegeCheck.isSelected());
@@ -137,7 +138,9 @@ public class AddRecipeView extends VBox{
 					recipe.setServing(Double.parseDouble(servingField.getText()));
 				}
 				recipe.setIngre(ingreContent.getText());
-				recipe.setInstructions(instruContent.getText());	
+				recipe.setInstructions(instruContent.getText());
+				recipe.setRecipePic(imgView.getImage());
+				recipe.setRecipePicView(imgView.getImage());
 				this.recipeBook.add(recipe);
 				recipeBook.printAllrecipeName();
 				root.setCenter(root.getRecipesNav());
