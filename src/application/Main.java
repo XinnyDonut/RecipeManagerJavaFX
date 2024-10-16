@@ -6,7 +6,7 @@ import logic.Recipe;
 import logic.RecipeBook;
 import userInterface.LeftNav;
 import userInterface.Root;
-import userInterface.RecipeNav;
+import userInterface.RecipeListView;
 import userInterface.SearchBar;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

@@ -3,6 +3,9 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Recipe {
 	private String name;
 	private Map<String,String>ingreMap;
@@ -12,19 +15,26 @@ public class Recipe {
 	private Boolean baking;
 	private Boolean vegetarian;
 	private Boolean tested;
+	private Image img;
+	private ImageView imgView=new ImageView();
 	
-	public Recipe(String name) {
-		this.name=name;		
-		this.ingreMap=new HashMap<String, String>();
-//		this.tested=false;
-//		this.baking=false;
-//		this.vegetarian=false;
+	public Recipe() {
 		
 	}
-//
-//	public void addIngre(String ingreName,String quantity) {
-//		this.ingreMap.putIfAbsent(ingreName, quantity);
-//	}
+	
+	public void setRecipePic(Image img) {
+		this.img=img;
+	}
+	public Image getRecipePic() {
+		return this.img;
+	}
+	
+	public void setRecipePicView(Image img) {
+		this.imgView.setImage(img);
+		imgView.setFitHeight(100);
+		imgView.setFitWidth(100);
+		imgView.setPreserveRatio(true);
+	}
 	
 	public void setIngre(String s) {
 		this.ingredients=s;

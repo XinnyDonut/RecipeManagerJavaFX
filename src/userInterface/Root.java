@@ -5,14 +5,16 @@ import logic.RecipeBook;
 
 public class Root extends BorderPane{
 	RecipeBook recipeBook;
+	RecipeListView recipesNav;
 	LeftNav leftNav=new LeftNav();
 	SearchBar searchBar =new SearchBar(this);
-	RecipeNav recipesNav=new RecipeNav();
+	
 	AddRecipeView addRecipeView;
 	
 	public Root(RecipeBook recipeBook) {
 		this.recipeBook=recipeBook;
 		this.addRecipeView=new AddRecipeView(this,recipeBook);
+		this.recipesNav=new RecipeListView(recipeBook);
 		this.setInitialLayout();
 		
 	}
@@ -49,12 +51,12 @@ public class Root extends BorderPane{
 	}
 
 
-	public RecipeNav getRecipesNav() {
+	public RecipeListView getRecipesNav() {
 		return recipesNav;
 	}
 
 
-	public void setRecipesNav(RecipeNav recipesNav) {
+	public void setRecipesNav(RecipeListView recipesNav) {
 		this.recipesNav = recipesNav;
 	}
 

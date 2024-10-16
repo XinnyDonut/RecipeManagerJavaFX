@@ -6,22 +6,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class RecipeBook {
 	
 	Map<String,Recipe>recipes;
+	ObservableList<Recipe> recipeList;
 	
 	public RecipeBook() {
 		
 		this.recipes=new HashMap<>();
+		this.recipeList = FXCollections.observableArrayList();
+		
 	}
 	
 	public boolean isBakingRecipe(Recipe r) {
 		return r.getBaking();
 	}
 	
+	public ObservableList<Recipe> getList(){
+		return this.recipeList;
+	}
 	
 	public void add(Recipe recipe) {		
 		this.recipes.put(recipe.getName(), recipe);
+		this.recipeList.add(recipe);
 	}
 	
 	public Boolean recipeExist(String s) {

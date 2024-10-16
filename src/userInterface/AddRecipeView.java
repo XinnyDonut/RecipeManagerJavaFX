@@ -40,8 +40,7 @@ public class AddRecipeView extends VBox{
 	public AddRecipeView(Root root,RecipeBook rb) {
 		this.setLayout();
 		this.root=root;
-		this.recipeBook=rb;
-		
+		this.recipeBook=rb;		
 	}
 	
 	public void setLayout() {
@@ -80,6 +79,8 @@ public class AddRecipeView extends VBox{
 				}catch(FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
+			}else {
+				imgView.setImage(new Image("file:img/placeholder.png"));
 			}
 		});
 		
@@ -100,9 +101,7 @@ public class AddRecipeView extends VBox{
 		mainArea.setSpacing(10);
 				
 	}
-	
-	
-	
+		
 	public void setInfoAreaLayout() {
 		Label nameLabel=new Label("name:");				
 		this.infoArea.add(nameLabel,0,0);
@@ -115,8 +114,7 @@ public class AddRecipeView extends VBox{
 		this.infoArea.add(servingField, 1, 3);
 		
 	}
-	
-		
+			
 	public void setBottomLayout() {
 		
 		Button save=new Button("save");
@@ -141,6 +139,7 @@ public class AddRecipeView extends VBox{
 				recipe.setInstructions(instruContent.getText());
 				recipe.setRecipePic(imgView.getImage());
 				recipe.setRecipePicView(imgView.getImage());
+				
 				this.recipeBook.add(recipe);
 				recipeBook.printAllrecipeName();
 				root.setCenter(root.getRecipesNav());
