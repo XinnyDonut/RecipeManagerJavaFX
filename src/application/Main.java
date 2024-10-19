@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.Recipe;
 import logic.RecipeBook;
+import logic.RecipeDAO;
 import userInterface.LeftNav;
 import userInterface.Root;
 import userInterface.RecipeListView;
@@ -19,7 +20,8 @@ public class Main extends Application {
 		try {
 			RecipeBook recipeBook=new RecipeBook();
 			Root root=new Root(recipeBook);
-			
+			RecipeDAO data=new RecipeDAO();
+			data.dbisConnected();
 			Scene scene = new Scene(root,600,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

@@ -13,6 +13,7 @@ public class RecipeListCell extends ListCell<Recipe> {
 	private ImageView thumbnail=new ImageView();
 	private VBox infoArea=new VBox();
 	private Label title=new Label();
+	private Label serving=new Label();
 	
 	
 	public RecipeListCell() {
@@ -36,7 +37,7 @@ public class RecipeListCell extends ListCell<Recipe> {
 		
 	}
 	public void setInfoArea() {				
-		this.infoArea.getChildren().addAll(title);
+		this.infoArea.getChildren().addAll(title,serving);
 	}
 	
 	public void updateItem(Recipe recipe,boolean empty) {
@@ -46,6 +47,7 @@ public class RecipeListCell extends ListCell<Recipe> {
 		  }else {
 			  this.thumbnail.setImage(recipe.getRecipePic());
 			  this.title.setText(recipe.getName());
+			  this.serving.setText("Serving: "+ recipe.getServing());
 			  //set the HBOX container as the cell
 			  this.setGraphic(container);
 		  }
