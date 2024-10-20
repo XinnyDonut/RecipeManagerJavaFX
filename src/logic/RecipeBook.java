@@ -35,7 +35,9 @@ public class RecipeBook {
 		return this.recipeList;
 	}
 	
-	
+	public RecipeDAO getData() {
+		return this.recipeData;
+	}
 	
 	public Boolean recipeExist(String s) {
 		return recipes.containsKey(s);

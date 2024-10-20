@@ -10,7 +10,7 @@ public class RecipeListView extends ListView<Recipe>{
 	
 	public RecipeListView(RecipeBook recipeBook) {
 		this.recipeBook=recipeBook;
-		this.setItems(recipeBook.getList());
+		this.setItems(recipeBook.getData().getAllRecipes());
 		this.setCellFactory(listView -> new RecipeListCell());
 	}
 	

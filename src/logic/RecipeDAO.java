@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class RecipeDAO {
 	private static final String DATABASE_URL="jdbc:sqlite:recipe.db";
@@ -57,8 +60,8 @@ public class RecipeDAO {
     }
 
     // Method to get all recipes from the database
-    public List<Recipe> getAllRecipes() {
-        List<Recipe> recipes = new ArrayList<>();
+    public ObservableList<Recipe> getAllRecipes() {
+        ObservableList<Recipe> recipes = FXCollections.observableArrayList();
         String sql = "SELECT * FROM recipes";
         try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -70,7 +73,7 @@ public class RecipeDAO {
                 recipe.setServing(rs.getDouble("serving"));
                 recipe.setIngre(rs.getString("ingredients"));
                 recipe.setInstructions(rs.getString("instructions"));
-                recipe.setImageURl(rs.getString("imagePath")); // Assuming image path is stored
+                recipe.setImageURl(rs.getString("img_URL")); // Assuming image path is stored
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
