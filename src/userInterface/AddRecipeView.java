@@ -32,7 +32,7 @@ public class AddRecipeView extends VBox{
 	CheckBox vegeCheck=new CheckBox("Vegetarian");
 	CheckBox tested=new CheckBox("tested Recipe");	
 	GridPane infoArea=new GridPane();
-	Recipe recipe=new Recipe();
+	String imageURL;
 	RecipeBook recipeBook;
 	ImageView imgView=new ImageView();
 	
@@ -75,6 +75,7 @@ public class AddRecipeView extends VBox{
 				try {
 					Image foodImg=new Image(new FileInputStream(selectefFile));
 					imgView.setImage(foodImg);
+					this.imageURL=selectefFile.toURI().toString();
 					
 				}catch(FileNotFoundException e1) {
 					e1.printStackTrace();
@@ -126,6 +127,7 @@ public class AddRecipeView extends VBox{
 			if(nameField.getText().isEmpty()) {
 				return;
 			}else {
+				Recipe recipe=new Recipe();
 				String name=nameField.getText();				
 				recipe.setName(name);	
 				recipe.setBaking(bakingCheck.isSelected());			
@@ -137,8 +139,10 @@ public class AddRecipeView extends VBox{
 				}
 				recipe.setIngre(ingreContent.getText());
 				recipe.setInstructions(instruContent.getText());
-				recipe.setRecipePic(imgView.getImage());
-				recipe.setRecipePicView(imgView.getImage());
+				recipe.setImageURl(this.imageURL);
+				recipe.setRecipePicView(recipe.getImageURL());
+				
+				
 				
 				this.recipeBook.add(recipe);
 				recipeBook.printAllrecipeName();

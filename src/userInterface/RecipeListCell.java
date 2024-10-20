@@ -45,7 +45,8 @@ public class RecipeListCell extends ListCell<Recipe> {
 		  if(empty||recipe==null) {
 			  this.setGraphic(null);
 		  }else {
-			  this.thumbnail.setImage(recipe.getRecipePic());
+			  Image img=new Image(recipe.getImageURL());
+			  this.thumbnail.setImage(img);
 			  this.title.setText(recipe.getName());
 			  this.serving.setText("Serving: "+ recipe.getServing());
 			  //set the HBOX container as the cell

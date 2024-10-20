@@ -12,25 +12,26 @@ public class Recipe {
 	private String instructions;
 	private String ingredients;
 	private double serving;
-	private Boolean baking;
-	private Boolean vegetarian;
-	private Boolean tested;
-	private Image img;
+	private boolean baking=false;
+	private boolean vegetarian=false;
+	private boolean tested=false;
+	
+	private String imgURL;
 	private ImageView imgView=new ImageView();
 	
 	public Recipe() {
 		
 	}
 	
-	public void setRecipePic(Image img) {
-		this.img=img;
+	public void setImageURl(String url) {
+		this.imgURL=url;
 	}
-	public Image getRecipePic() {
-		return this.img;
+	public String getImageURL() {
+		return this.imgURL;
 	}
 	
-	public void setRecipePicView(Image img) {
-		this.imgView.setImage(img);
+	public void setRecipePicView(String imgURL) {
+		imgView.setImage(new Image(imgURL));
 		imgView.setFitHeight(100);
 		imgView.setFitWidth(100);
 		imgView.setPreserveRatio(true);
@@ -43,10 +44,7 @@ public class Recipe {
 		this.instructions=s;
 	}
 	
-	public void deleteIngre(String s) {
-		this.ingredients.replace(s, "");
-	}
-	
+		
 	public String getName() {
 		return name;
 	}
@@ -55,8 +53,8 @@ public class Recipe {
 		this.name = name;
 	}
 
-	public Map<String,String> getIngre() {
-		return ingreMap;
+	public String getIngre() {
+		return ingredients;
 	}
 
 
@@ -65,26 +63,26 @@ public class Recipe {
 	}
 
 	
-	public Boolean getVegetarian() {
+	public boolean getVegetarian() {
 		return this.vegetarian;
 	}
 
-	public void setVegetarian(Boolean b) {
+	public void setVegetarian(boolean b) {
 		this.vegetarian = b;
 	}
 	
-	public void setBaking(Boolean b) {
+	public void setBaking(boolean b) {
 		this.baking=b;
 	}
 	
 	public boolean getBaking() {
 		return this.baking;
 	}
-	public void setTested(Boolean b) {
+	public void setTested(boolean b) {
 		this.tested=b;
 	}
 	
-	public Boolean getTested(Boolean b) {
+	public boolean getTested() {
 		return this.tested;
 	}
 

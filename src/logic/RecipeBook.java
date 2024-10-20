@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class RecipeBook {
-	
+	RecipeDAO recipeData;
 	Map<String,Recipe>recipes;
 	ObservableList<Recipe> recipeList;
 	
@@ -18,7 +18,13 @@ public class RecipeBook {
 		
 		this.recipes=new HashMap<>();
 		this.recipeList = FXCollections.observableArrayList();
-		
+		this.recipeData=new RecipeDAO();		
+	}
+	
+	public void add(Recipe recipe) {		
+		this.recipes.put(recipe.getName(), recipe);
+		this.recipeList.add(recipe);
+		this.recipeData.saveRecipe(recipe);
 	}
 	
 	public boolean isBakingRecipe(Recipe r) {
@@ -29,10 +35,7 @@ public class RecipeBook {
 		return this.recipeList;
 	}
 	
-	public void add(Recipe recipe) {		
-		this.recipes.put(recipe.getName(), recipe);
-		this.recipeList.add(recipe);
-	}
+	
 	
 	public Boolean recipeExist(String s) {
 		return recipes.containsKey(s);
