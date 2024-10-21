@@ -1,1 +1,10 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+.read-only-textArea{
+	-fx-control-inner-background: lightgray;  /* Background color for the text area */
+    -fx-background-color: lightgray;         /* Overall background */
+    -fx-opacity: 1;                          /* Make sure it's fully visible */
+    -fx-border-color: transparent;           /* Remove border if you prefer */
+    -fx-text-fill: black;                    /* Text color */
+}

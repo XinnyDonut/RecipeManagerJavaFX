@@ -21,7 +21,7 @@ public class Main extends Application {
 			RecipeBook recipeBook=new RecipeBook();
 			Root root=new Root(recipeBook);
 			RecipeDAO data=new RecipeDAO();
-			data.dbisConnected();
+//			data.dbisConnected();
 			Scene scene = new Scene(root,600,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
