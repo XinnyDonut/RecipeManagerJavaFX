@@ -24,14 +24,25 @@ public class RecipeBook {
 	public void add(Recipe recipe) {		
 		this.recipes.put(recipe.getName(), recipe);
 		this.recipeList.add(recipe);
-		this.recipeData.saveRecipe(recipe);
+		this.recipeData.saveRecipeDB(recipe);
+	}
+	
+	public void updateRecipe(Recipe recipe,String oldName) {
+				
+		if(recipe.getName()!=oldName) {
+			this.recipes.remove(oldName);			
+		}
+		this.recipes.put(recipe.getName(), recipe);
+		this.recipeData.updateRecipeDB(recipe, oldName);
+		
+		
 	}
 	
 	public boolean containRecipe(String name) {
 		return this.recipes.containsKey(name);
 	}
 	
-	//do i need to deal with the data base??
+	//do i need to deal with the data base here??
 	public Recipe getRecipe(String name) {
 		return this.recipes.get(name);
 	}
@@ -44,7 +55,7 @@ public class RecipeBook {
 		return this.recipeList;
 	}
 	
-	public RecipeDAO getData() {
+	public RecipeDAO getRecipeDAO() {
 		return this.recipeData;
 	}
 	

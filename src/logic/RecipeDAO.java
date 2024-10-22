@@ -29,7 +29,7 @@ public class RecipeDAO {
 		}
 	}
 	
-	public void saveRecipe(Recipe recipe) {
+	public void saveRecipeDB(Recipe recipe) {
 	    String sql = "INSERT INTO recipes (name, baking, vegetarian, tested, serving, ingredients, instructions, img_URL) "
 	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -43,6 +43,25 @@ public class RecipeDAO {
 	        pstmt.setString(6, recipe.getIngre() != null ? recipe.getIngre() : null);
 	        pstmt.setString(7, recipe.getInstructions() != null ? recipe.getInstructions() : null);
 	        pstmt.setString(8, recipe.getImageURL() != null ? recipe.getImageURL() : null);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    }
+	}
+	
+	
+	public void updateRecipeDB(Recipe recipe, String oldName) {
+	    String sql = "UPDATE recipes SET name = ?, baking = ?, vegetarian = ?, tested = ?, serving = ?, ingredients = ?, instructions = ?, img_URL = ? WHERE name = ?";
+	    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, recipe.getName());  // New or unchanged name
+	        pstmt.setInt(2, recipe.getBaking() ? 1 : 0);
+	        pstmt.setInt(3, recipe.getVegetarian() ? 1 : 0);
+	        pstmt.setInt(4, recipe.getTested() ? 1 : 0);
+	        pstmt.setObject(5, recipe.getServing() > 0 ? recipe.getServing() : null);
+	        pstmt.setString(6, recipe.getIngre() != null ? recipe.getIngre() : null);
+	        pstmt.setString(7, recipe.getInstructions() != null ? recipe.getInstructions() : null);
+	        pstmt.setString(8, recipe.getImageURL() != null ? recipe.getImageURL() : null);
+	        pstmt.setString(9, oldName);  // Match the recipe by its old name
 	        pstmt.executeUpdate();
 	    } catch (SQLException e) {
 	        System.out.println(e.getMessage());

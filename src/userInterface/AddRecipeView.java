@@ -33,9 +33,11 @@ public class AddRecipeView extends VBox{
 	CheckBox vegeCheck=new CheckBox("Vegetarian");
 	CheckBox tested=new CheckBox("tested Recipe");	
 	GridPane infoArea=new GridPane();
-	String imageURL;
 	RecipeBook recipeBook;
+	String uploadedURL;
 	Recipe recipe;
+	RecipeView recipeView;
+	
 	ImageView imgView=new ImageView();
 	
 	
@@ -47,8 +49,11 @@ public class AddRecipeView extends VBox{
 	}
 	
 	//this is the view when user wants to edit a recipe, it loads the existing recipe's data 
-	public AddRecipeView(Recipe recipe) {
+	public AddRecipeView(Recipe recipe,Root root,RecipeBook recipeBook) {
 		this.setLayout();
+		this.root=root;
+		this.recipe=recipe;
+		this.recipeBook=recipeBook;
 		this.nameField.setText(recipe.getName());
 		this.ingreContent.setText(recipe.getIngre());
 		this.instruContent.setText(recipe.getInstructions());
@@ -88,7 +93,7 @@ public class AddRecipeView extends VBox{
 				try {
 					Image foodImg=new Image(new FileInputStream(selectefFile));
 					imgView.setImage(foodImg);
-					this.imageURL=selectefFile.toURI().toString();
+					this.uploadedURL=selectefFile.toURI().toString();
 					
 				}catch(FileNotFoundException e1) {
 					e1.printStackTrace();
@@ -137,16 +142,13 @@ public class AddRecipeView extends VBox{
 		
 		save.setOnAction(e->{
 			//In the future might need to add functiona that if recipe already exist, not adding
-			String name=nameField.getText();	
+			String name=nameField.getText();
+			
 			if(nameField.getText().isEmpty()) {
 				return;
 			}
-			if(this.recipeBook.containRecipe(name)) {
-				this.recipe=this.recipeBook.getRecipe(name);
-			}else {
-				this.recipe=new Recipe();
-				this.recipeBook.add(recipe);
-			}
+			if(this.recipe==null) {
+				recipe=new Recipe();				
 				recipe.setName(name);	
 				recipe.setBaking(bakingCheck.isSelected());			
 				recipe.setVegetarian(vegeCheck.isSelected());
@@ -157,15 +159,35 @@ public class AddRecipeView extends VBox{
 				}
 				recipe.setIngre(ingreContent.getText());
 				recipe.setInstructions(instruContent.getText());
-				recipe.setImageURl(this.imageURL);
+				if(this.uploadedURL!=null) {
+					recipe.setImageURl(this.uploadedURL);
+				}				
 				recipe.setRecipePicView(recipe.getImageURL());
+				this.recipeBook.add(recipe);
 				
 				
-				
-				
-				//recipeBook.printAllrecipeName();
-				root.setCenter(root.getRecipesNav());
-					
+			}else {
+				String oldName=recipe.getName();
+				recipe.setName(name);	
+				recipe.setBaking(bakingCheck.isSelected());			
+				recipe.setVegetarian(vegeCheck.isSelected());
+				recipe.setTested(tested.isSelected());
+				//need to handle exceptions here,or should i use combo box so user can only select a num
+				if(!servingField.getText().isEmpty()) {
+					recipe.setServing(Double.parseDouble(servingField.getText()));
+				}
+				recipe.setIngre(ingreContent.getText());
+				recipe.setInstructions(instruContent.getText());
+				if(this.uploadedURL!=null) {
+					recipe.setImageURl(this.uploadedURL);
+				}			
+				recipe.setRecipePicView(recipe.getImageURL());
+				this.recipeBook.updateRecipe(recipe, oldName);
+											
+			}
+			
+			root.setCenter(root.getRecipesNav());
+								
 		});
 		bottomArea.getChildren().addAll(save,cancel);
 	}

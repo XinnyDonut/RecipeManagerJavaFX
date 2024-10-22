@@ -8,7 +8,7 @@ public class Root extends BorderPane{
 	RecipeListView recipeListView;
 	LeftNav leftNav=new LeftNav();
 	SearchBar searchBar =new SearchBar(this);
-	RecipeView recipeView;
+//	RecipeView recipeView;
 	AddRecipeView addRecipeView;
 	
 	public Root(RecipeBook recipeBook) {

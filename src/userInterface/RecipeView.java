@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.Recipe;
+import logic.RecipeBook;
 
 public class RecipeView extends VBox{
 	private HBox topArea=new HBox();
@@ -21,12 +22,13 @@ public class RecipeView extends VBox{
 	private Button recipeBtn=new Button("back to recipes");
 	private Root root;
 	private AddRecipeView editRecipeView;
+	private RecipeBook recipeBook;
 	
-	public RecipeView(Recipe recipe,Root root) {
+	public RecipeView(Recipe recipe,Root root,RecipeBook rb) {
 		this.root=root;
 		this.recipe=recipe;
 		this.setLayout();
-		this.editRecipeView=new AddRecipeView(recipe);
+		this.editRecipeView=new AddRecipeView(recipe,root,rb);
 		
 	}
 	

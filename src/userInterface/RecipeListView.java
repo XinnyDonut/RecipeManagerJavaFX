@@ -12,7 +12,7 @@ public class RecipeListView extends ListView<Recipe>{
 	public RecipeListView(Root root,RecipeBook recipeBook) {
 		this.recipeBook=recipeBook;
 		this.root=root;
-		this.setItems(recipeBook.getData().getAllRecipes());
+		this.setItems(recipeBook.getRecipeDAO().getAllRecipes());
 		this.setCellFactory(listView -> new RecipeListCell());
 		this.showRecipe();
 	}
@@ -23,7 +23,7 @@ public class RecipeListView extends ListView<Recipe>{
 			Recipe selectedRecipe = this.getSelectionModel().getSelectedItem();
 			System.out.println(selectedRecipe.getName());	
 		    if (selectedRecipe != null) {
-		        RecipeView recipeView=new RecipeView(selectedRecipe,root);
+		        RecipeView recipeView=new RecipeView(selectedRecipe,root,recipeBook);
 		        root.setCenter(recipeView);
 		    }
 		});
