@@ -1,5 +1,6 @@
 package userInterface;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -15,19 +16,28 @@ public class RecipeView extends VBox{
 	private VBox infoArea=new VBox();
 	private ImageView imgView=new ImageView();
 	private Recipe recipe;
+	private HBox bottomArea=new HBox();
+	private Button editBtn=new Button("Edit");
+	private Button recipeBtn=new Button("back to recipes");
+	private Root root;
+	private AddRecipeView editRecipeView;
 	
-	public RecipeView(Recipe recipe) {
+	public RecipeView(Recipe recipe,Root root) {
+		this.root=root;
 		this.recipe=recipe;
 		this.setLayout();
+		this.editRecipeView=new AddRecipeView(recipe);
+		
 	}
 	
 	public void setLayout() {
 		setTopAreaLayout();
 		setMainAreaLayout();
+		setBottomAreaLayout();
 		ScrollPane scrollPane=new ScrollPane(this);
 		scrollPane.setFitToWidth(true);  // Ensure VBox takes the full width of the ScrollPane
 		scrollPane.setPannable(true);//allow dragging  
-		this.getChildren().addAll(topArea,mainArea);
+		this.getChildren().addAll(topArea,mainArea,bottomArea);
 	}
 	
 	public void setImageView() {
@@ -37,14 +47,12 @@ public class RecipeView extends VBox{
 		this.imgView.setPreserveRatio(true);	
 	}
 	
-	public void setInfoArea() {
-		
+	public void setInfoArea() {		
 		Label name=new Label(recipe.getName());
 		this.infoArea.getChildren().addAll(name);
 	}
 		
 	public void setTopAreaLayout() {
-		
 		setImageView();
 		setInfoArea();
 		this.topArea.getChildren().addAll(this.imgView,this.infoArea);
@@ -57,6 +65,7 @@ public class RecipeView extends VBox{
 		Label ingreLabel=new Label("Ingredients");
 		TextArea ingredients=new TextArea(recipe.getIngre());
 		ingredients.setEditable(false);
+		ingredients.getStyleClass().add("read-only-textArea"); 
 		ingreArea.getChildren().addAll(ingreLabel,ingredients);
 		ingreArea.setSpacing(10);
 		
@@ -64,11 +73,22 @@ public class RecipeView extends VBox{
 		Label instrLabel=new Label("Instructions");
 		TextArea instructions= new TextArea(recipe.getInstructions());
 		instructions.setEditable(false);
+		instructions.getStyleClass().add("read-only-textArea");
 		instruArea.getChildren().addAll(instrLabel,instructions);
 		instruArea.setSpacing(10);
 		
 		
 		this.mainArea.getChildren().addAll(ingreArea,instruArea);
 		mainArea.setSpacing(10);
+	}
+	
+	public void setBottomAreaLayout() {
+		editBtn.setOnAction(e->{
+			root.setCenter(this.editRecipeView);
+		});
+		recipeBtn.setOnAction(e->{
+			root.setCenter(root.getRecipeListView());
+		});
+		this.bottomArea.getChildren().addAll(editBtn,recipeBtn);
 	}
 }

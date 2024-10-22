@@ -23,7 +23,7 @@ public class RecipeListView extends ListView<Recipe>{
 			Recipe selectedRecipe = this.getSelectionModel().getSelectedItem();
 			System.out.println(selectedRecipe.getName());	
 		    if (selectedRecipe != null) {
-		        RecipeView recipeView=new RecipeView(selectedRecipe);
+		        RecipeView recipeView=new RecipeView(selectedRecipe,root);
 		        root.setCenter(recipeView);
 		    }
 		});

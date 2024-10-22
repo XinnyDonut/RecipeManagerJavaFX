@@ -27,6 +27,15 @@ public class RecipeBook {
 		this.recipeData.saveRecipe(recipe);
 	}
 	
+	public boolean containRecipe(String name) {
+		return this.recipes.containsKey(name);
+	}
+	
+	//do i need to deal with the data base??
+	public Recipe getRecipe(String name) {
+		return this.recipes.get(name);
+	}
+	
 	public boolean isBakingRecipe(Recipe r) {
 		return r.getBaking();
 	}

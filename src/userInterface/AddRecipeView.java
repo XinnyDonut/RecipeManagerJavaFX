@@ -21,26 +21,39 @@ import logic.RecipeBook;
 public class AddRecipeView extends VBox{
 	Root root;
 	HBox topArea=new HBox();
-	HBox mainArea=new HBox();
-	TextArea ingreContent=new TextArea();
-	TextArea instruContent=new TextArea();
+	HBox mainArea=new HBox();	
 	HBox bottomArea=new HBox();
 	VBox imageArea=new VBox();
+	
 	TextField nameField=new TextField();
 	TextField servingField= new TextField();
+	TextArea ingreContent=new TextArea();
+	TextArea instruContent=new TextArea();
 	CheckBox bakingCheck=new CheckBox("Baking recipe");
 	CheckBox vegeCheck=new CheckBox("Vegetarian");
 	CheckBox tested=new CheckBox("tested Recipe");	
 	GridPane infoArea=new GridPane();
 	String imageURL;
 	RecipeBook recipeBook;
+	Recipe recipe;
 	ImageView imgView=new ImageView();
 	
 	
+	//this is the view when user created a new recipe
 	public AddRecipeView(Root root,RecipeBook rb) {
 		this.setLayout();
 		this.root=root;
 		this.recipeBook=rb;		
+	}
+	
+	//this is the view when user wants to edit a recipe, it loads the existing recipe's data 
+	public AddRecipeView(Recipe recipe) {
+		this.setLayout();
+		this.nameField.setText(recipe.getName());
+		this.ingreContent.setText(recipe.getIngre());
+		this.instruContent.setText(recipe.getInstructions());
+		//still need to handle checkBox
+		this.imgView.setImage(new Image(recipe.getImageURL()));
 	}
 	
 	public void setLayout() {
@@ -124,11 +137,16 @@ public class AddRecipeView extends VBox{
 		
 		save.setOnAction(e->{
 			//In the future might need to add functiona that if recipe already exist, not adding
+			String name=nameField.getText();	
 			if(nameField.getText().isEmpty()) {
 				return;
+			}
+			if(this.recipeBook.containRecipe(name)) {
+				this.recipe=this.recipeBook.getRecipe(name);
 			}else {
-				Recipe recipe=new Recipe();
-				String name=nameField.getText();				
+				this.recipe=new Recipe();
+				this.recipeBook.add(recipe);
+			}
 				recipe.setName(name);	
 				recipe.setBaking(bakingCheck.isSelected());			
 				recipe.setVegetarian(vegeCheck.isSelected());
@@ -144,10 +162,10 @@ public class AddRecipeView extends VBox{
 				
 				
 				
-				this.recipeBook.add(recipe);
-				recipeBook.printAllrecipeName();
+				
+				//recipeBook.printAllrecipeName();
 				root.setCenter(root.getRecipesNav());
-			}		
+					
 		});
 		bottomArea.getChildren().addAll(save,cancel);
 	}
