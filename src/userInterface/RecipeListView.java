@@ -12,10 +12,12 @@ public class RecipeListView extends ListView<Recipe>{
 	public RecipeListView(Root root,RecipeBook recipeBook) {
 		this.recipeBook=recipeBook;
 		this.root=root;
-		this.setItems(recipeBook.getRecipeDAO().getAllRecipes());
-		this.setCellFactory(listView -> new RecipeListCell());
+		this.setItems(recipeBook.getList());
+		this.setCellFactory(listView -> new RecipeListCell());		
 		this.showRecipe();
 	}
+	
+	
 	
 	public void showRecipe() {
 		this.setOnMouseClicked(event -> {

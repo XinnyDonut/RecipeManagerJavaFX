@@ -11,18 +11,20 @@ import javafx.collections.ObservableList;
 
 public class RecipeBook {
 	RecipeDAO recipeData;
-	Map<String,Recipe>recipes;
+	Map<String,Recipe>recipeMap;
 	ObservableList<Recipe> recipeList;
 	
-	public RecipeBook() {
+	public RecipeBook(RecipeDAO db) {
+		this.recipeList=FXCollections.observableArrayList();
+		this.recipeMap=new HashMap<>();	
+		this.recipeData=db;		
+		this.recipeList = recipeData.getAllRecipes();
+		recipeList.forEach(recipe->recipeMap.put(recipe.getName(),recipe));
 		
-		this.recipes=new HashMap<>();
-		this.recipeList = FXCollections.observableArrayList();
-		this.recipeData=new RecipeDAO();		
 	}
 	
 	public void add(Recipe recipe) {		
-		this.recipes.put(recipe.getName(), recipe);
+		this.recipeMap.put(recipe.getName(), recipe);
 		this.recipeList.add(recipe);
 		this.recipeData.saveRecipeDB(recipe);
 	}
@@ -30,21 +32,28 @@ public class RecipeBook {
 	public void updateRecipe(Recipe recipe,String oldName) {
 				
 		if(recipe.getName()!=oldName) {
-			this.recipes.remove(oldName);			
+			this.recipeMap.remove(oldName);			
 		}
-		this.recipes.put(recipe.getName(), recipe);
+		this.recipeMap.put(recipe.getName(), recipe);
 		this.recipeData.updateRecipeDB(recipe, oldName);
 		
 		
+		int i =this.recipeList.indexOf(recipe);
+		if(i>=0) {
+			this.recipeList.set(i, recipe);
+		}else {
+			recipeList.add(recipe);
+		}
+					
 	}
 	
 	public boolean containRecipe(String name) {
-		return this.recipes.containsKey(name);
+		return this.recipeMap.containsKey(name);
 	}
 	
 	//do i need to deal with the data base here??
 	public Recipe getRecipe(String name) {
-		return this.recipes.get(name);
+		return this.recipeMap.get(name);
 	}
 	
 	public boolean isBakingRecipe(Recipe r) {
@@ -60,16 +69,16 @@ public class RecipeBook {
 	}
 	
 	public Boolean recipeExist(String s) {
-		return recipes.containsKey(s);
+		return recipeMap.containsKey(s);
 	}
 	
 	
 	public void delete(String str) {
-		this.recipes.remove(str);
+		this.recipeMap.remove(str);
 	}
 	
 	public void printAllrecipeName() {
-		this.recipes.forEach((key,value)->{
+		this.recipeMap.forEach((key,value)->{
 			System.out.println(key);	
 		});
 	}
@@ -104,9 +113,9 @@ public class RecipeBook {
 	 */
 	public List<Recipe> listALLVegRecipe(){
 		List<Recipe>vegRecipes=new ArrayList<>();
-		for(String s:this.recipes.keySet()) {
-			if(recipes.get(s).getVegetarian()) {
-				vegRecipes.add(recipes.get(s));
+		for(String s:this.recipeMap.keySet()) {
+			if(recipeMap.get(s).getVegetarian()) {
+				vegRecipes.add(recipeMap.get(s));
 			}
 		}		
 		return vegRecipes;
