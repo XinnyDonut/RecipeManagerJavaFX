@@ -23,7 +23,7 @@ public class RecipeListView extends ListView<Recipe>{
 		this.setOnMouseClicked(event -> {
 			
 			Recipe selectedRecipe = this.getSelectionModel().getSelectedItem();
-			System.out.println(selectedRecipe.getName());	
+			
 		    if (selectedRecipe != null) {
 		        RecipeView recipeView=new RecipeView(selectedRecipe,root,recipeBook);
 		        root.setCenter(recipeView);

@@ -39,7 +39,7 @@ public class RecipeDAO {
 	        pstmt.setInt(2, recipe.getBaking()==true ? 1 : 0);
 	        pstmt.setInt(3, recipe.getVegetarian()==true ? 1 : 0);
 	        pstmt.setInt(4, recipe.getTested()==true ? 1 : 0);
-	        pstmt.setObject(5, recipe.getServing() > 0 ? recipe.getServing() : null);  // Example of conditionally checking values
+	        pstmt.setString(5, recipe.getServing() != null? recipe.getServing() : null);  
 	        pstmt.setString(6, recipe.getIngre() != null ? recipe.getIngre() : null);
 	        pstmt.setString(7, recipe.getInstructions() != null ? recipe.getInstructions() : null);
 	        pstmt.setString(8, recipe.getImageURL() != null ? recipe.getImageURL() : null);
@@ -57,7 +57,7 @@ public class RecipeDAO {
 	        pstmt.setInt(2, recipe.getBaking() ? 1 : 0);
 	        pstmt.setInt(3, recipe.getVegetarian() ? 1 : 0);
 	        pstmt.setInt(4, recipe.getTested() ? 1 : 0);
-	        pstmt.setObject(5, recipe.getServing() > 0 ? recipe.getServing() : null);
+	        pstmt.setObject(5, recipe.getServing() != null ? recipe.getServing() : null);
 	        pstmt.setString(6, recipe.getIngre() != null ? recipe.getIngre() : null);
 	        pstmt.setString(7, recipe.getInstructions() != null ? recipe.getInstructions() : null);
 	        pstmt.setString(8, recipe.getImageURL() != null ? recipe.getImageURL() : null);
@@ -89,7 +89,7 @@ public class RecipeDAO {
                 recipe.setBaking(rs.getBoolean("baking"));
                 recipe.setVegetarian(rs.getBoolean("vegetarian"));
                 recipe.setTested(rs.getBoolean("tested"));
-                recipe.setServing(rs.getDouble("serving"));
+                recipe.setServing(rs.getString("serving"));
                 recipe.setIngre(rs.getString("ingredients"));
                 recipe.setInstructions(rs.getString("instructions"));
                 recipe.setImageURl(rs.getString("img_URL")); // Assuming image path is stored

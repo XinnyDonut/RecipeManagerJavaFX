@@ -14,6 +14,9 @@ public class RecipeListCell extends ListCell<Recipe> {
 	private VBox infoArea=new VBox();
 	private Label title=new Label();
 	private Label serving=new Label();
+//	private Label vegetarian=new Label();
+//	private Label texted=new Label();
+//	private Label baking=new Label();
 	
 	
 	public RecipeListCell() {
@@ -49,7 +52,7 @@ public class RecipeListCell extends ListCell<Recipe> {
 			  this.thumbnail.setImage(img);
 			  this.title.setText(recipe.getName());
 			  this.serving.setText("Serving: "+ recipe.getServing());
-			  //set the HBOX container as the cell
+			  //this is to set the HBOX container as the cell
 			  this.setGraphic(container);
 		  }
 	}
