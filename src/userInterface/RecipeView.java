@@ -75,8 +75,7 @@ public class RecipeView extends VBox{
 	public void setTopAreaLayout() {
 		setImageView();
 		setInfoArea();
-		this.topArea.getChildren().addAll(this.imgView,this.infoArea);
-		
+		this.topArea.getChildren().addAll(this.imgView,this.infoArea);		
 		
 	}
 	

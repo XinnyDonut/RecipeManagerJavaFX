@@ -20,6 +20,7 @@ public class LeftNav extends VBox{
 	Button toBeTested= new Button("to Be Tested");	
 	Button baking=new Button("Baking/Dessert");
 	Button cooking =new Button("Cooking");
+	Button vege=new Button("vegetarian");
 	Button randRecipe=new Button("supriseMe");
 	RecipeListView recipeListView;
 	
@@ -36,7 +37,7 @@ public class LeftNav extends VBox{
 	
 	public void setRecipeNavLayout() {
 		VBox recipeBtns=new VBox();	
-		recipeBtns.getChildren().addAll(all,recent,tested,toBeTested,baking,cooking);	
+		recipeBtns.getChildren().addAll(all,recent,tested,toBeTested,baking,cooking,vege);	
 		recipeBtns.setSpacing(10);
 		recipeNav.setText("Recipe");		
 		recipeNav.setContent(recipeBtns);
@@ -50,7 +51,18 @@ public class LeftNav extends VBox{
 		tested.setOnAction(e->{
 			this.recipeListView.showTestedRecipe();
 		});
-		
+		toBeTested.setOnAction(e->{
+			this.recipeListView.showUntestedRecipe();
+		});
+		baking.setOnAction(e->{
+			this.recipeListView.showBakingRecipe();
+		});
+		cooking.setOnAction(e->{
+			this.recipeListView.showCookingRecipe();
+		});
+		vege.setOnAction(e->{
+			this.recipeListView.showVegetarianRecipe();
+		});
 		
 		
 		

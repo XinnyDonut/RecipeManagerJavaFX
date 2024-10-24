@@ -48,20 +48,43 @@ public class RecipeListView extends ListView<Recipe>{
 		this.setItems(reveseList);
 	}
 	
-	public void showBakingRecipe() {
+	public ObservableList<Recipe> showBakingRecipe() {
 		ObservableList<Recipe>list=recipeBook.getList();
 		ObservableList<Recipe> bakingList = list.stream()
 			    .filter(recipe -> recipe.getBaking() == true)
 			    .collect(Collectors.toCollection(FXCollections::observableArrayList));
 		this.setItems(bakingList);
+		return bakingList;
+	}
+	public void showCookingRecipe() {
+		ObservableList<Recipe>list=recipeBook.getList();
+		ObservableList<Recipe>bakingList=this.showBakingRecipe();
+		list.removeAll(bakingList);
+		this.setItems(list);
 	}
 	
 	public void showTestedRecipe() {
-		
+		ObservableList<Recipe>list=recipeBook.getList();
+		ObservableList<Recipe> testedList = list.stream()
+			    .filter(recipe -> recipe.getTested() == true)
+			    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+		this.setItems(testedList);
+	}
+	
+	public void showUntestedRecipe() {
+		ObservableList<Recipe>list=recipeBook.getList();
+		ObservableList<Recipe> unTestedList = list.stream()
+			    .filter(recipe -> recipe.getTested() == false)
+			    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+		this.setItems(unTestedList);
 	}
 	
 	public void showVegetarianRecipe() {
-		
+		ObservableList<Recipe>list=recipeBook.getList();
+		ObservableList<Recipe> vegeList = list.stream()
+			    .filter(recipe -> recipe.getVegetarian() == true)
+			    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+		this.setItems(vegeList);
 	}
 	
 	public void showSearchedRecipe(String s) {
