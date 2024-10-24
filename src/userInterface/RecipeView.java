@@ -1,6 +1,7 @@
 package userInterface;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -16,13 +17,14 @@ public class RecipeView extends VBox{
 	private HBox mainArea= new HBox();
 	private VBox infoArea=new VBox();
 	private ImageView imgView=new ImageView();
-	private Recipe recipe;
+	
 	private HBox bottomArea=new HBox();
 	private Button editBtn=new Button("Edit");
 	private Button recipeBtn=new Button("back to recipes");
 	private Root root;
 	private AddRecipeView editRecipeView;
 	private RecipeBook recipeBook;
+	private Recipe recipe;
 	
 	public RecipeView(Recipe recipe,Root root,RecipeBook rb) {
 		this.root=root;
@@ -51,7 +53,23 @@ public class RecipeView extends VBox{
 	
 	public void setInfoArea() {		
 		Label name=new Label(recipe.getName());
-		this.infoArea.getChildren().addAll(name);
+		Label serving=new Label();
+		Label info=new Label();
+		serving.setText(serving!=null?"Serving: "+recipe.getServing():"Serving: ");
+		
+		String infoString="";
+		if(recipe.getBaking()==true) {
+			infoString+="Baking  ";
+		}
+		if(recipe.getTested()==true) {
+			infoString+="Tested ";
+		}
+		if(recipe.getVegetarian()==true) {
+			infoString+="Vegetarian";
+		}
+		info.setText(infoString);
+		
+		this.infoArea.getChildren().addAll(name,serving,info);
 	}
 		
 	public void setTopAreaLayout() {

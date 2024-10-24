@@ -19,6 +19,7 @@ import logic.Recipe;
 import logic.RecipeBook;
 
 public class AddRecipeView extends VBox{
+	public static final String PLACE_HOLDER_URL="file:img/placeholder.png";
 	Root root;
 	HBox topArea=new HBox();
 	HBox mainArea=new HBox();	
@@ -57,7 +58,7 @@ public class AddRecipeView extends VBox{
 		this.nameField.setText(recipe.getName());
 		this.ingreContent.setText(recipe.getIngre());
 		this.instruContent.setText(recipe.getInstructions());
-		//still need to handle checkBox
+		this.servingField.setText(recipe.getServing());
 		this.imgView.setImage(new Image(recipe.getImageURL()));
 	}
 	
@@ -79,7 +80,7 @@ public class AddRecipeView extends VBox{
 	
 	public void setImageAreaLayout() {
 		
-		imgView.setImage(new Image("file:img/placeholder.png"));
+		imgView.setImage(new Image(PLACE_HOLDER_URL));
 		imgView.setFitWidth(100);
 		imgView.setFitHeight(100);
 		imgView.setPreserveRatio(true);
@@ -99,7 +100,7 @@ public class AddRecipeView extends VBox{
 					e1.printStackTrace();
 				}
 			}else {
-				imgView.setImage(new Image("file:img/placeholder.png"));
+				imgView.setImage(new Image(PLACE_HOLDER_URL));
 			}
 		});
 		
@@ -155,13 +156,15 @@ public class AddRecipeView extends VBox{
 				recipe.setTested(tested.isSelected());
 				//need to handle exceptions here,or should i use combo box so user can only select a num
 				if(!servingField.getText().isEmpty()) {
-					recipe.setServing(Double.parseDouble(servingField.getText()));
+					recipe.setServing(servingField.getText());
 				}
 				recipe.setIngre(ingreContent.getText());
 				recipe.setInstructions(instruContent.getText());
 				if(this.uploadedURL!=null) {
 					recipe.setImageURl(this.uploadedURL);
-				}				
+				}else {
+					recipe.setImageURl(PLACE_HOLDER_URL);
+				}
 				recipe.setRecipePicView(recipe.getImageURL());
 				this.recipeBook.add(recipe);
 				
@@ -172,9 +175,9 @@ public class AddRecipeView extends VBox{
 				recipe.setBaking(bakingCheck.isSelected());			
 				recipe.setVegetarian(vegeCheck.isSelected());
 				recipe.setTested(tested.isSelected());
-				//need to handle exceptions here,or should i use combo box so user can only select a num
-				if(!servingField.getText().isEmpty()) {
-					recipe.setServing(Double.parseDouble(servingField.getText()));
+				
+				if(servingField.getText()!=null) {
+					recipe.setServing(servingField.getText());
 				}
 				recipe.setIngre(ingreContent.getText());
 				recipe.setInstructions(instruContent.getText());

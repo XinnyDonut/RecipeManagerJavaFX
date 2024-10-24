@@ -51,7 +51,11 @@ public class RecipeBook {
 		return this.recipeMap.containsKey(name);
 	}
 	
-	//do i need to deal with the data base here??
+	public Map<String,Recipe> getRecipeMap() {
+		return this.recipeMap;
+	}
+	
+	
 	public Recipe getRecipe(String name) {
 		return this.recipeMap.get(name);
 	}
