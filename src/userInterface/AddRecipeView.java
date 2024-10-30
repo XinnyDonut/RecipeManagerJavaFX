@@ -44,17 +44,23 @@ public class AddRecipeView extends VBox{
 	
 	//this is the view when user created a new recipe
 	public AddRecipeView(Root root,RecipeBook rb) {
+		
 		this.setLayout();
 		this.root=root;
-		this.recipeBook=rb;		
+		this.recipeBook=rb;
+		
 	}
 	
 	//this is the view when user wants to edit a recipe, it loads the existing recipe's data 
-	public AddRecipeView(Recipe recipe,Root root,RecipeBook recipeBook) {
-		this.setLayout();
+	public AddRecipeView(Recipe recipe,Root root,RecipeBook recipeBook) {		
 		this.root=root;
 		this.recipe=recipe;
 		this.recipeBook=recipeBook;
+		
+		this.setLayout();
+		this.bakingCheck.setSelected(recipe.getBaking());
+		this.vegeCheck.setSelected(recipe.getVegetarian());
+		this.tested.setSelected(recipe.getTested());
 		this.nameField.setText(recipe.getName());
 		this.ingreContent.setText(recipe.getIngre());
 		this.instruContent.setText(recipe.getInstructions());
@@ -142,7 +148,7 @@ public class AddRecipeView extends VBox{
 		cancel.setOnAction(e->root.setCenter(root.getRecipesNav()));
 		
 		save.setOnAction(e->{
-			//In the future might need to add functiona that if recipe already exist, not adding
+			//In the future might need to add function that if recipe already exist, not adding
 			String name=nameField.getText();
 			
 			if(nameField.getText().isEmpty()) {
@@ -193,6 +199,19 @@ public class AddRecipeView extends VBox{
 								
 		});
 		bottomArea.getChildren().addAll(save,cancel);
+	}
+	
+	public void clearFields() {
+	    this.recipe = null;  
+	    this.bakingCheck.setSelected(false);
+	    this.vegeCheck.setSelected(false);
+	    this.tested.setSelected(false);
+	    this.nameField.clear();
+	    this.ingreContent.clear();
+	    this.instruContent.clear();
+	    this.servingField.clear();
+	    this.imgView.setImage(new Image(PLACE_HOLDER_URL));
+	    this.uploadedURL=null;
 	}
 	
 }

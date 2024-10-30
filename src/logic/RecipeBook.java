@@ -47,9 +47,29 @@ public class RecipeBook {
 					
 	}
 	
+	public Boolean recipeExist(String s) {
+		return recipeMap.containsKey(s);
+	}
+	
+	
+	public void deleteSingleRecipe(Recipe recipe) {
+		recipeList.remove(recipe);
+		recipeMap.remove(recipe.getName());
+		this.recipeData.deleteRecipeByName(recipe.getName());
+	}
+	
+	public void deleteMultipleRecipe(ObservableList<Recipe>recipesToDelete) {
+		this.recipeList.removeAll(recipesToDelete);
+		recipesToDelete.forEach(r->recipeMap.remove(r.getName()));
+		recipesToDelete.forEach(r->this.recipeData.deleteRecipeByName(r.getName()));
+	}
+	
 	public boolean containRecipe(String name) {
 		return this.recipeMap.containsKey(name);
 	}
+	
+	
+	
 	
 	public Map<String,Recipe> getRecipeMap() {
 		return this.recipeMap;
@@ -60,9 +80,6 @@ public class RecipeBook {
 		return this.recipeMap.get(name);
 	}
 	
-	public boolean isBakingRecipe(Recipe r) {
-		return r.getBaking();
-	}
 	
 	public ObservableList<Recipe> getList(){
 		return this.recipeList;
@@ -72,63 +89,10 @@ public class RecipeBook {
 		return this.recipeData;
 	}
 	
-	public Boolean recipeExist(String s) {
-		return recipeMap.containsKey(s);
-	}
-	
-	
-	public void delete(String str) {
-		this.recipeMap.remove(str);
-	}
-	
-	public void printAllrecipeName() {
-		this.recipeMap.forEach((key,value)->{
-			System.out.println(key);	
-		});
-	}
 	
 	
 	
-//	public void listRecipesByCategory(Category category) {
-//		//list all the recipe by catogory (either baking or cooking)
-//		List<String>recipeNames=new ArrayList<String>();
-//		if(category==Category.BAKING) {
-//			this.bakingRecipes.forEach((s,r)->recipeNames.add(s));
-//		}else {
-//			this.recipes.forEach((s,r)->recipeNames.add(s));
-//		}
-//	}
 	
-	
-	/**
-	 * 
-	 * @param ingredient as a String
-	 * @return a list of recipes that include that ingredients
-	 */
-	public List<Recipe> findRecipeByName(String ingre) {
-		
-		return null;
-	}
-
-	
-	/**
-	 * 
-	 * @return a list of recipes that are vegetarian
-	 */
-	public List<Recipe> listALLVegRecipe(){
-		List<Recipe>vegRecipes=new ArrayList<>();
-		for(String s:this.recipeMap.keySet()) {
-			if(recipeMap.get(s).getVegetarian()) {
-				vegRecipes.add(recipeMap.get(s));
-			}
-		}		
-		return vegRecipes;
-	}
-		
 	
 
-	
-	//add picture to a recipe
-	//modify a recipe
-	//how often I use one recipe
 }

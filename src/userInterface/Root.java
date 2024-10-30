@@ -7,23 +7,31 @@ public class Root extends BorderPane{
 	RecipeBook recipeBook;
 	RecipeListView recipeListView;
 	LeftNav leftNav;
-	SearchBar searchBar =new SearchBar(this);
-//	RecipeView recipeView;
+	ControllerBar controllerBar;
 	AddRecipeView addRecipeView;
 	
 	public Root(RecipeBook recipeBook) {
 		this.recipeBook=recipeBook;		
 		this.addRecipeView=new AddRecipeView(this,recipeBook);
 		this.recipeListView=new RecipeListView(this,recipeBook);
-		this.leftNav=new LeftNav(recipeListView);
+		this.leftNav=new LeftNav(this);
+		this.controllerBar =new ControllerBar(this,recipeBook);
 		this.setInitialLayout();
+		
+		this.centerProperty().addListener((observable, oldValue, newValue) -> {
+	            if (newValue instanceof RecipeListView) {
+	                this.controllerBar.setDisable(false);  // Enable control bar if RecipeListView is shown
+	            } else {
+	                controllerBar.setDisable(true);   // Disable control bar if another view is shown
+	            }
+	        });
 		
 	}
 	
 	
 	public void setInitialLayout() {					
 		this.setLeft(leftNav);
-		this.setTop(searchBar);
+		this.setTop(controllerBar);
 		this.setCenter(recipeListView);
 	}
 
@@ -52,13 +60,13 @@ public class Root extends BorderPane{
 	}
 
 
-	public SearchBar getSearchBar() {
-		return searchBar;
+	public ControllerBar getcontrollarBar() {
+		return controllerBar;
 	}
 
 
-	public void setSearchBar(SearchBar searchBar) {
-		this.searchBar = searchBar;
+	public void setcontrollarBar(ControllerBar controllarBar) {
+		this.controllerBar = controllarBar;
 	}
 
 

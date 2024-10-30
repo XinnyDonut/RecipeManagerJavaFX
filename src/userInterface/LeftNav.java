@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import logic.RecipeBook;
 
 public class LeftNav extends VBox{
-	//MenuButton recipe=new MenuButton("Recipe");
+	Root root;
 	
 	TitledPane recipeNav=new TitledPane();
 	Button all= new Button("All Recipes");
@@ -28,11 +28,12 @@ public class LeftNav extends VBox{
 	
 	
 	
-	public LeftNav(RecipeListView recipeListView) {
+	public LeftNav(Root root) {
 		this.getChildren().addAll(recipeNav,randRecipe);
 		this.setSpacing(10);
 		this.setRecipeNavLayout();		
-		this.recipeListView=recipeListView;
+		this.recipeListView=root.getRecipeListView();
+		this.root=root;
 	}
 	
 	public void setRecipeNavLayout() {
@@ -43,24 +44,31 @@ public class LeftNav extends VBox{
 		recipeNav.setContent(recipeBtns);
 		
 		all.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showAllRecipe();
 		});
 		recent.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showRecipeRecent();
 		});
 		tested.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showTestedRecipe();
 		});
 		toBeTested.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showUntestedRecipe();
 		});
 		baking.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showBakingRecipe();
 		});
 		cooking.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showCookingRecipe();
 		});
 		vege.setOnAction(e->{
+			root.setCenter(recipeListView);
 			this.recipeListView.showVegetarianRecipe();
 		});
 		
