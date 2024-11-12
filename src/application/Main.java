@@ -23,7 +23,7 @@ public class Main extends Application {
 			Root root=new Root(recipeBook);
 			
 //			data.dbisConnected();
-			Scene scene = new Scene(root,600,500);
+			Scene scene = new Scene(root,600,700);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

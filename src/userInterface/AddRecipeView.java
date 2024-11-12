@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import logic.Recipe;
@@ -30,9 +33,9 @@ public class AddRecipeView extends VBox{
 	TextField servingField= new TextField();
 	TextArea ingreContent=new TextArea();
 	TextArea instruContent=new TextArea();
-	CheckBox bakingCheck=new CheckBox("Baking recipe");
+	CheckBox bakingCheck=new CheckBox("Baking");
 	CheckBox vegeCheck=new CheckBox("Vegetarian");
-	CheckBox tested=new CheckBox("tested Recipe");	
+	CheckBox tested=new CheckBox("Favorite");	
 	GridPane infoArea=new GridPane();
 	RecipeBook recipeBook;
 	String uploadedURL;
@@ -81,14 +84,15 @@ public class AddRecipeView extends VBox{
 		setInfoAreaLayout();	
 		this.topArea.getChildren().addAll(imageArea,infoArea);
 		this.topArea.setSpacing(20);
+		topArea.setPadding(new Insets(10));
 		
 	}
 	
 	public void setImageAreaLayout() {
 		
 		imgView.setImage(new Image(PLACE_HOLDER_URL));
-		imgView.setFitWidth(100);
-		imgView.setFitHeight(100);
+		imgView.setFitWidth(150);
+		imgView.setFitHeight(150);
 		imgView.setPreserveRatio(true);
 		
 		Button uploadBtn=new Button("upload image");
@@ -112,6 +116,8 @@ public class AddRecipeView extends VBox{
 		
 		
 		this.imageArea.getChildren().addAll(imgView,uploadBtn);
+		this.imageArea.setSpacing(10);
+		
 	}
 	
 	
@@ -119,25 +125,47 @@ public class AddRecipeView extends VBox{
 		VBox ingreArea=new VBox();
 		VBox instruArea=new VBox();
 		Label ingreLabel= new Label("Ingredients:");
+		ingreLabel.getStyleClass().add("recipe-label");
 		Label instruLabel=new Label("instructions:");
+		instruLabel.getStyleClass().add("recipe-label");
 		
 		ingreArea.getChildren().addAll(ingreLabel,ingreContent);
 		instruArea.getChildren().addAll(instruLabel,instruContent);
+		ingreArea.setSpacing(10);
+		instruArea.setSpacing(10);
+		ingreContent.setPrefHeight(300);
+		ingreContent.setWrapText(true);
+		instruContent.setPrefHeight(300);
+		instruContent.setWrapText(true);
+		
+		
+		ingreArea.setPadding(new Insets(10));
+	    instruArea.setPadding(new Insets(10));
+	    HBox.setHgrow(instruArea, Priority.ALWAYS); 
+	    HBox.setHgrow(ingreArea, Priority.ALWAYS); 
+	     
+		ingreArea.setAlignment(Pos.TOP_CENTER);
+		instruArea.setAlignment(Pos.TOP_CENTER);
 		mainArea.getChildren().addAll(ingreArea,instruArea);
 		mainArea.setSpacing(10);
+		mainArea.setPadding(new Insets(3));
 				
 	}
 		
 	public void setInfoAreaLayout() {
-		Label nameLabel=new Label("name:");				
+		Label nameLabel=new Label("Name:");
+		Label servingLabel=new Label("Serving:");
 		this.infoArea.add(nameLabel,0,0);
 		this.infoArea.add(nameField, 1, 0);		
-		this.infoArea.add(bakingCheck, 0, 1);
-		this.infoArea.add(vegeCheck, 1, 1);
-		this.infoArea.add(tested, 0, 2);
-		Label servingLabel=new Label("Serving");
-		this.infoArea.add(servingLabel,0, 3);
-		this.infoArea.add(servingField, 1, 3);
+		this.infoArea.add(bakingCheck, 0, 2);
+		this.infoArea.add(vegeCheck, 1, 2);
+		this.infoArea.add(tested, 0, 3);	
+		this.infoArea.add(servingLabel,0, 1);
+		this.infoArea.add(servingField, 1, 1);
+		
+		infoArea.setHgap(4);
+		infoArea.setVgap(8);
+		
 		
 	}
 			
@@ -199,6 +227,7 @@ public class AddRecipeView extends VBox{
 								
 		});
 		bottomArea.getChildren().addAll(save,cancel);
+		bottomArea.setPadding(new Insets(10));
 	}
 	
 	public void clearFields() {

@@ -1,11 +1,12 @@
 package userInterface;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logic.Recipe;
@@ -19,7 +20,7 @@ public class ControllerBar extends VBox{
 	HBox SearchBar=new HBox();
 	TextField searchField= new TextField();
 	Button addRecipeBtn=new Button("+");
-	Button toggleDeleteBtn=new Button("Delete");
+	Button toggleDeleteBtn=new Button();
 	
 	RecipeBook recipeBook;
 	Root root;
@@ -46,6 +47,7 @@ public class ControllerBar extends VBox{
 		this.SearchBar.setSpacing(40);;
 		this.SearchBar.setAlignment(Pos.BASELINE_RIGHT);
 		this.SearchBar.getChildren().addAll(searchField,addRecipeBtn,toggleDeleteBtn);
+		this.SearchBar.getStyleClass().add("controller-bar");
 		addRecipeBtn.setOnAction(e->{
 			this.root.getAddRecipeView().clearFields();
 			this.root.setCenter(root.getAddRecipeView());
@@ -59,21 +61,24 @@ public class ControllerBar extends VBox{
 		toggleDeleteBtn.setOnAction(e->{
 			this.getRoot().getRecipeListView().setCheckBoxVisibility(true);
 			this.toggleDeleteBar(true);
-			//NEED to make the recipeviewclick disable????
 			this.getRoot().getRecipeListView().toggleDeleteMode(true);
+			this.SearchBar.setDisable(true);
 		   
 		});
+		
+		this.setBtnStyleHelper();
+		
 	}
 	
 	public void setDeleteBar() {
 		this.deleteBar.getChildren().addAll(deleteSelectedBtn,cancelBtn);
 		this.deleteBar.setAlignment(Pos.BASELINE_RIGHT);
 		this.deleteBar.setSpacing(40);
+		this.SearchBar.getStyleClass().add("controller-bar");
 		cancelBtn.setOnAction(e->{
 			this.getRoot().getRecipeListView().setCheckBoxVisibility(false);
 			toggleDeleteBar(false);
-			
-			//NEED to make the recipeviewclick able again
+			this.SearchBar.setDisable(false);
 			this.getRoot().getRecipeListView().toggleDeleteMode(false);
 			   
 			
@@ -86,16 +91,31 @@ public class ControllerBar extends VBox{
 			this.recipeBook.deleteMultipleRecipe(recipeToDelete);
 			this.getRoot().getRecipeListView().setCheckBoxVisibility(false);
 			toggleDeleteBar(false);
-			//NEED to make the recipeviewclick able again
+			this.SearchBar.setDisable(false);
 			this.getRoot().getRecipeListView().toggleDeleteMode(false);
 			
 		});
+		
+		
 		
 	}
 	
 	public void toggleDeleteBar(Boolean b) {
 		this.deleteBar.setVisible(b);
 		this.deleteBar.setManaged(b);
+	}
+	
+	public void setBtnStyleHelper() {
+		Image img = new Image("file:img/delete.png");
+		ImageView imgView=new ImageView();
+		imgView.setFitHeight(15);
+		imgView.setFitWidth(15);
+		imgView.setImage(img);				
+		toggleDeleteBtn.setGraphic(imgView);
+		toggleDeleteBtn.getStyleClass().add("controllerBar-btn");
+		addRecipeBtn.getStyleClass().add("controllerBar-btn");
+		
+		
 	}
 	
 	public Root getRoot() {

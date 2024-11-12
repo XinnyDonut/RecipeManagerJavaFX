@@ -1,5 +1,7 @@
 package userInterface;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -8,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import logic.Recipe;
 import logic.RecipeBook;
@@ -32,6 +35,7 @@ public class RecipeView extends VBox{
 		this.setLayout();
 		this.editRecipeView=new AddRecipeView(recipe,root,rb);
 		
+		
 	}
 	
 	public void setLayout() {
@@ -53,9 +57,10 @@ public class RecipeView extends VBox{
 	
 	public void setInfoArea() {		
 		Label name=new Label(recipe.getName());
+		name.getStyleClass().add("recipe-title");
 		Label serving=new Label();
 		Label info=new Label();
-		serving.setText(serving!=null?"Serving: "+recipe.getServing():"Serving: ");
+		serving.setText(recipe.getServing()!=null?"Serving: "+recipe.getServing():"Serving: ");
 		
 		String infoString="";
 		if(recipe.getBaking()==true) {
@@ -69,36 +74,62 @@ public class RecipeView extends VBox{
 		}
 		info.setText(infoString);
 		
+		
+		info.setStyle("-fx-font-style: italic");
+		HBox infoBox=new HBox(info);
+		infoBox.setAlignment(Pos.BOTTOM_RIGHT);
+		
+		
 		this.infoArea.getChildren().addAll(name,serving,info);
+		infoArea.setSpacing(20);
+		
 	}
 		
 	public void setTopAreaLayout() {
 		setImageView();
 		setInfoArea();
-		this.topArea.getChildren().addAll(this.imgView,this.infoArea);		
+		this.topArea.getChildren().addAll(this.imgView,this.infoArea);
+		topArea.setPadding(new Insets(10));
+		
 		
 	}
 	
 	public void setMainAreaLayout() {
 		VBox ingreArea=new VBox();
 		Label ingreLabel=new Label("Ingredients");
+		ingreLabel.getStyleClass().add("recipe-label");
 		TextArea ingredients=new TextArea(recipe.getIngre());
 		ingredients.setEditable(false);
 		ingredients.getStyleClass().add("read-only-textArea"); 
 		ingreArea.getChildren().addAll(ingreLabel,ingredients);
-		ingreArea.setSpacing(10);
+		ingreArea.setSpacing(10);		
+		ingredients.setWrapText(true);
+	    ingredients.setPrefHeight(300); // Ensure consistent height
+	    ingreArea.setPadding(new Insets(10));
+	    HBox.setHgrow(ingreArea, Priority.ALWAYS);
+	    ingreArea.setAlignment(Pos.CENTER);
 		
 		VBox instruArea=new VBox();
 		Label instrLabel=new Label("Instructions");
+		instrLabel.getStyleClass().add("recipe-label");
 		TextArea instructions= new TextArea(recipe.getInstructions());
 		instructions.setEditable(false);
 		instructions.getStyleClass().add("read-only-textArea");
 		instruArea.getChildren().addAll(instrLabel,instructions);
 		instruArea.setSpacing(10);
+		instructions.setWrapText(true);
+	    instructions.setPrefHeight(300);
+	    instruArea.setPadding(new Insets(10));
+	    HBox.setHgrow(instruArea, Priority.ALWAYS); 
+	    instruArea.setAlignment(Pos.CENTER);
 		
+//		this.autoResizeTextArea(instructions);
+//		this.autoResizeTextArea(ingredients);
 		
 		this.mainArea.getChildren().addAll(ingreArea,instruArea);
 		mainArea.setSpacing(10);
+		mainArea.setPadding(new Insets(3));
+		
 	}
 	
 	public void setBottomAreaLayout() {
@@ -109,5 +140,14 @@ public class RecipeView extends VBox{
 			root.setCenter(root.getRecipeListView());
 		});
 		this.bottomArea.getChildren().addAll(editBtn,recipeBtn);
+		bottomArea.setPadding(new Insets(10));
 	}
+	
+	private void autoResizeTextArea(TextArea textArea) {
+        textArea.setWrapText(true); // Enable text wrapping
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Set the preferred height based on the text content
+            textArea.setPrefHeight(textArea.getPrefRowCount() * textArea.getFont().getSize() + 20);
+        });
+    }
 }

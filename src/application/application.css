@@ -8,3 +8,53 @@
     -fx-border-color: transparent;           /* Remove border if you prefer */
     -fx-text-fill: black;                    /* Text color */
 }
+
+.recipe-title{
+	-fx-text-fill:#6A1B4D;
+	-fx-font-size:22;
+	-fx-font-weight:bolder;
+	
+}
+.controller-bar{
+	-fx-padding:5;
+	-fx-background-color:lightgrey;
+}
+.listView-label{
+	-fx-font-weight:bold;
+	-fx-font-size:15;
+		
+}
+.recipe-label{
+	 -fx-text-fill:#6A1B4D ;   
+	 -fx-font-weight:bold;
+	 -fx-font-size:20;
+	  
+}
+.nav-btn{
+	-fx-pref-width: 80px;   /* Uniform width */
+    -fx-pref-height: 50px;   /* Uniform height */
+    -fx-padding: 5px;       /* Internal padding */
+    -fx-alignment: center;   /* Center image and text */
+    -fx-background-color:#F08080;
+    -fx-background-color:#DCC6E0;
+	
+}
+.nav-btn:hover {
+    -fx-background-color: #B095C8; /* Slightly darker lilac on hover */
+}
+.left-nav{
+	-fx-background-color:lightgrey;
+}
+
+.controllerBar-btn{
+	-fx-pref-width: 24px;   /* Uniform width */
+    -fx-pref-height: 24px;   /* Uniform height */
+    -fx-padding: 1px;       /* Internal padding */
+    -fx-alignment: center;   /* Center image and text */
+    -fx-background-color:#C1E1C1;
+    -fx-background-color:#B095C8;
+}
+
+.controllerBar-btn:hover{
+    -fx-background-color:#DCC6E0;
+}

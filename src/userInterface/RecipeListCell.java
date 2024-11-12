@@ -17,11 +17,11 @@ public class RecipeListCell extends ListCell<Recipe> {
 	private ImageView thumbnail=new ImageView();
 	
 	private VBox infoArea=new VBox();
+	private HBox labelbox=new HBox();
 	private Label titleLabel=new Label();
-	private Label servingLabel=new Label();
-	private Label infoLabel=new Label();
+	private Label servingLabel=new Label("Makes: ");
 	private CheckBox checkBox=new CheckBox();
-	private  ObservableList<Recipe> selectedRecipes;
+	private ObservableList<Recipe> selectedRecipes;
 	
 	
 		
@@ -55,10 +55,16 @@ public class RecipeListCell extends ListCell<Recipe> {
 	public void setImageView() {		
 		this.thumbnail.setFitHeight(100);
 		this.thumbnail.setFitWidth(100);
-		this.thumbnail.setPreserveRatio(true);	
+		//this.thumbnail.setPreserveRatio(true);	
 	}
-	public void setInfoArea() {				
-		this.infoArea.getChildren().addAll(titleLabel,servingLabel,infoLabel);
+	public void setInfoArea() {		
+		this.labelbox.getChildren().addAll(servingLabel);
+		labelbox.setSpacing(5);
+		this.infoArea.getChildren().addAll(titleLabel,labelbox);
+		infoArea.setSpacing(20);
+		
+		titleLabel.getStyleClass().add("recipe-title");
+		servingLabel.getStyleClass().add("listView-label");
 	}
 	
 	public void updateItem(Recipe recipe,boolean empty) {
@@ -70,19 +76,8 @@ public class RecipeListCell extends ListCell<Recipe> {
 			  this.thumbnail.setImage(img);
 			  this.titleLabel.setText(recipe.getName());
 			  if(recipe.getServing()!=null) {
-				  this.servingLabel.setText("Serving: "+ recipe.getServing());
-			  }
-			  String infoString="";
-				if(recipe.getBaking()==true) {
-					infoString+="Baking  ";
-				}
-				if(recipe.getTested()==true) {
-					infoString+="Tested ";
-				}
-				if(recipe.getVegetarian()==true) {
-					infoString+="Vegetarian";
-				}
-				this.infoLabel.setText(infoString);
+				  this.servingLabel.setText("Makes: "+ recipe.getServing());
+			  }			
 			  			  
 			  //this is to set the HBOX container as the cell
 			  this.setGraphic(container);
